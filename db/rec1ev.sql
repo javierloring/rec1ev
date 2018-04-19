@@ -4,8 +4,14 @@ CREATE TABLE usuarios
 (
     id       bigserial    PRIMARY KEY
   , nombre   varchar(255) NOT NULL UNIQUE
-  , password char(64)
+  , numero   smallint     NOT NULL UNIQUE
+  , password varchar(64)
 );
+
+INSERT
+    INTO usuarios (nombre, numero, password)
+  VALUES ('pepe', '001', crypt('pepe', gen_salt('bf', 11)))
+         ,('juan', '002', crypt('juan', gen_salt('bf', 11)));
 
 DROP TABLE IF EXISTS citas CASCADE;
 
