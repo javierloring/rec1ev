@@ -58,7 +58,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
      */
     public function getCitas()
     {
-        return $this->hasMany(Citas::className(), ['usuario_id' => 'id']);
+        return $this->hasMany(Citas::className(), ['usuario_id' => 'id'])->inverseOf('usuario');
     }
 
     /**

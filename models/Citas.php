@@ -2,8 +2,6 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
  * This is the model class for table "citas".
  *
@@ -56,6 +54,6 @@ class Citas extends \yii\db\ActiveRecord
      */
     public function getUsuario()
     {
-        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id']);
+        return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('citas');
     }
 }
