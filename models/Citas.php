@@ -56,4 +56,17 @@ class Citas extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('citas');
     }
+
+    public static function ultima(): timestamp
+    {
+        $ultima = Yii::$app->Citas::className()->find()
+            ->select('instante')
+            ->groupby('instante')
+            ->having('instante = max');
+
+        if ($ultima === null || $ultima->date('H:i') === '20:45') {
+            $ultima = new Yii::DateTime()->add()
+        }
+        return
+    }
 }
