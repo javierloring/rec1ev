@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Yii;
 
 /**
@@ -57,16 +60,27 @@ class Citas extends \yii\db\ActiveRecord
         return $this->hasOne(Usuarios::className(), ['id' => 'usuario_id'])->inverseOf('citas');
     }
 
+    /**
+     * [siguiente description].
+     * @return DateTime [description]
+     */
     public static function siguiente(): DateTime
     {
-        $ultima = static::find('instante')->max ?? 'now';
+        $ultima = static::find()->max('instante') ?? 'now';
         $zona = new DateTimeZone(Yii::$app->formatter->timeZone);
 
         $local = (new DateTime($ultima))->setTimeZone($zona)->format('H:i');
 
-        if ($ultima === null || $ultima->date('H:i') === '20:45') {
-            $ultima = new Yii::DateTime()->add()
+        if ($local == '20:45' || $ultima == 'now') {
+            $siguiente = (new DateTime($ultima))
+                ->setTimeZone($zona)
+                ->add(new DateInterval('P1D'))
+                ->setTime(10, 0, 0)
+                ->setTimeZone('UTC');
+        } else {
+            $siguiente = (new DateTime($ultima))
+                ->add(new DateInterval('PT15M'));
         }
-        return
+        return $siguiente;
     }
 }
