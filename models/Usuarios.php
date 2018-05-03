@@ -49,7 +49,7 @@ class Usuarios extends \yii\db\ActiveRecord implements \yii\web\IdentityInterfac
             'id' => 'ID',
             'nombre' => 'Nombre',
             'numero' => 'Numero',
-            'password' => 'Password',
+            'password' => 'Contraseña',
         ];
     }
 
